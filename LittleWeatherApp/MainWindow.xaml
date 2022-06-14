@@ -5,8 +5,71 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LittleWeatherApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="512" Width="1024"
+        ResizeMode="NoResize"
+        >
     <Grid>
-        
+
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="20">
+
+            </ColumnDefinition>
+
+            <ColumnDefinition>
+            </ColumnDefinition>
+
+            <ColumnDefinition>
+            </ColumnDefinition>
+
+            <ColumnDefinition Width="20">
+
+            </ColumnDefinition>
+
+            <ColumnDefinition>
+            </ColumnDefinition>
+
+            <ColumnDefinition Width="20">
+
+            </ColumnDefinition>
+
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="20">
+
+            </RowDefinition>
+
+            <RowDefinition>
+            </RowDefinition>
+
+            <RowDefinition>
+            </RowDefinition>
+
+            <RowDefinition>
+            </RowDefinition>
+
+            <RowDefinition Height="20">
+
+            </RowDefinition>
+
+
+
+        </Grid.RowDefinitions>
+
+
+
+        <Grid.Background>
+            <ImageBrush x:Name="backgroundImage" ImageSource="/LittleWeatherApp;component/Images/Sun.png">
+
+            </ImageBrush>
+        </Grid.Background>
+        <Label x:Name="labelTemperature" Grid.Row="2" Grid.Column="1" Content="40°C" HorizontalContentAlignment="Left" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="115" FontWeight="Bold" Background="#00000000" Foreground="White" Width="301">
+            <Label.Effect>
+                <DropShadowEffect ShadowDepth="5" BlurRadius="10" Opacity="0.7"/>
+            </Label.Effect>
+        </Label>
+
     </Grid>
 </Window>

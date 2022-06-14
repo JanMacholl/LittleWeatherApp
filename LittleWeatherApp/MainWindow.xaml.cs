@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 
 namespace LittleWeatherApp
 {
@@ -25,20 +26,43 @@ namespace LittleWeatherApp
 
             private string requestUrl = "https://api.openweathermap.org/data/2.5/weather";
 
-                 public MainWindow()
+        public MainWindow()
         {
             InitializeComponent();
 
+            WeatherMapResponse result = GetWeatherData("Kalifornien");
+
+            string finalImage = "sun.png";
+            string currentWeather = result.weather[0].main.ToLower();
+
+
+            if (currentWeather.Contains("cloud"))
+            {
+                finalImage = "cloud.png";
+            } else if (currentWeather.Contains("rain"))
+            {
+                finalImage = "rain.png";
+            } else if (currentWeather.Contains("snow"))
+            {
+                finalImage = "snow.png";
+            }
+
+
+            backgroundImage.ImageSource = new BitmapImage(new Uri("Images/" + finalImage, UriKind.Relative));
+
+
+            labelTemperature.Content = result.main.temp.ToString("F1") + "°C";
+
+        }
+
+        public WeatherMapResponse GetWeatherData(string city)
+        {
             HttpClient httpClient = new HttpClient();
-
-            var city = "Wilhelmshaven";
             var finalUri = requestUrl + "?q=" + city + "&appid=" + apiKey + "&units=metric";
-           
             HttpResponseMessage httpResponse = httpClient.GetAsync(finalUri).Result;
-
             string response = httpResponse.Content.ReadAsStringAsync().Result;
-
-            Console.WriteLine(response);
+            WeatherMapResponse weatherMapResponse = JsonConvert.DeserializeObject<WeatherMapResponse>(response);
+            return weatherMapResponse;
         }
     }
 }
